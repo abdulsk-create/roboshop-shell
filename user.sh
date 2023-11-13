@@ -11,7 +11,7 @@ cd /app
 npm install
 
 install mongodb-org-shell -y
-mongo --host MONGODB-SERVER-IPADDRESS </app/schema/user.js
+mongo --host mongodb.entertanova.com </app/schema/user.js
 
 systemctl daemon-reload
 systemctl enable user
