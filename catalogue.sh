@@ -10,7 +10,7 @@ unzip /tmp/catalogue.zip
 cd /app
 npm install
 
-install mongodb-org-shell -y
+yum install mongodb-org-shell -y
 mongo --host mongodb.entertanova.com </app/schema/catalogue.js
 
 systemctl daemon-reload
