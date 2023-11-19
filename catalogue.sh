@@ -1,8 +1,6 @@
 cp catalogue.service /etc/systemd/system/catalogue.service
 cp mongo.repo /etc/yum.repos.d/mongo.repo
 
-yum module disable nodejs -y
-yum module enable nodejs:18 -y
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash
 yum install nodejs -y
 useradd roboshop
@@ -14,7 +12,7 @@ cd /app
 npm install
 
 yum install mongodb-org-shell -y
-mongo --host mongodb.entertanova.com </app/schema/catalogue.js
+mongo --host MONGODB-SERVER-IPADDRESS </app/schema/catalogue.js
 
 systemctl daemon-reload
 systemctl enable catalogue

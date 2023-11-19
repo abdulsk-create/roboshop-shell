@@ -10,4 +10,4 @@ pip3.6 install -r requirements.txt
 
 systemctl daemon-reload
 systemctl enable payment
-systemctl restart payment
+systemctl start payment
