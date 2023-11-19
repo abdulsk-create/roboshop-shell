@@ -19,6 +19,9 @@ mkdir /app
 echo ">>>>>>>>>>>>>>>>>>>>>>>> download application content <<<<<<<<<<<<<<<<<<<<<<<<<<<"
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip
 
+echo ">>>>>>>>>>>>>>>>>>>>>>>> removing old content <<<<<<<<<<<<<<<<<<<<<<<<<<<"
+rm -rf /usr/share/nginx/html/*
+
 echo ">>>>>>>>>>>>>>>>>>>>>>>> extract application content <<<<<<<<<<<<<<<<<<<<<<<<<<<"
 cd /app
 unzip /tmp/catalogue.zip
