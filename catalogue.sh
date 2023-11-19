@@ -1,6 +1,8 @@
 cp catalogue.service /etc/systemd/system/catalogue.service
 cp mongo.repo /etc/yum.repos.d/mongo.repo
 
+yum module disable nodejs -y
+yum module enable nodejs:18 -y
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash
 yum install nodejs -y
 useradd roboshop
