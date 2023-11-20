@@ -1,6 +1,8 @@
 log=/tmp/roboshop.log
 
 func_apppreq() {
+  echo -e "\e[36m>>>>>>>>>>>>>>>>>>>>>>>> create ${component} service <<<<<<<<<<<<<<<<<<<<<<<<<<\e[0m"
+  cp ${component}.service /etc/systemd/system/${component}.service &>>${log}
   echo -e "\e[36m>>>>>>>>>>>>>>>>>>>>>>>> create application user <<<<<<<<<<<<<<<<<<<<<<<<<<\e[0m"
   useradd roboshop &>>${log}
 
@@ -27,8 +29,6 @@ func_systemd() {
 
 func_nodejs() {
   log=/tmp/roboshop.log
-  echo -e "\e[36m>>>>>>>>>>>>>>>>>>>>>>>> create ${component} service <<<<<<<<<<<<<<<<<<<<<<<<<<\e[0m"
-  cp ${component}.service /etc/systemd/system/${component}.service &>>${log}
 
   echo -e "\e[36m>>>>>>>>>>>>>>>>>>>>>>>> create mongodb repo <<<<<<<<<<<<<<<<<<<<<<<<<<\e[0m"
   cp mongo.repo /etc/yum.repos.d/mongo.repo &>>${log}
@@ -40,7 +40,6 @@ func_nodejs() {
   yum install nodejs -y &>>${log}
 
   func_apppreq
-
   echo -e "\e[36m>>>>>>>>>>>>>>>>>>>>>>>> download nodejs dependencies <<<<<<<<<<<<<<<<<<<<<<<<<<\e[0m"
   npm install &>>${log}
 
@@ -52,9 +51,6 @@ func_nodejs() {
 }
 
 func_java() {
-  echo -e "\e[36m>>>>>>>>>>>>>>>>>>>>>>>> create ${component} service <<<<<<<<<<<<<<<<<<<<<<<<<<\e[0m"
-  cp ${component}.service /etc/systemd/system/${component}.service &>>${log}
-
   echo -e "\e[36m>>>>>>>>>>>>>>>>>>>>>>>> install maven <<<<<<<<<<<<<<<<<<<<<<<<<<\e[0m"
   yum install maven -y &>>${log}
 
@@ -71,6 +67,18 @@ func_java() {
   mysql -h mysql.entertanova.com -uroot -pRoboShop@1 < /app/schema/${component}.sql &>>${log}
 
   echo -e "\e[36m>>>>>>>>>>>>>>>>>>>>>>>> build ${component} service <<<<<<<<<<<<<<<<<<<<<<<<<<\e[0m"
+
+  func_systemd
+}
+
+func_python() {
+  echo -e "\e[36m>>>>>>>>>>>>>>>>>>>>>>>> build ${component} service <<<<<<<<<<<<<<<<<<<<<<<<<<\e[0m"
+  yum install python36 gcc python3-devel -y &>>${log}
+
+  func_apppreq
+
+  echo -e "\e[36m>>>>>>>>>>>>>>>>>>>>>>>> build ${component} service <<<<<<<<<<<<<<<<<<<<<<<<<<\e[0m"
+  pip3.6 install -r requirements.txt &>>${log}
 
   func_systemd
 }
