@@ -95,12 +95,14 @@ func_nodejs() {
 func_java() {
   echo -e "\e[36m>>>>>>>>>>>>>>>>>>>>>>>> install maven <<<<<<<<<<<<<<<<<<<<<<<<<<\e[0m"
   yum install maven -y &>>${log}
+  func_exit_status
 
   func_apppreq
 
   echo -e "\e[36m>>>>>>>>>>>>>>>>>>>>>>>> build ${component} service <<<<<<<<<<<<<<<<<<<<<<<<<<\e[0m"
   mvn clean package &>>${log}
   mv target/${component}-1.0.jar ${component}.jar &>>${log}
+  func_exit_status
 
   func_schema_setup
 
@@ -110,11 +112,13 @@ func_java() {
 func_python() {
   echo -e "\e[36m>>>>>>>>>>>>>>>>>>>>>>>> build ${component} service <<<<<<<<<<<<<<<<<<<<<<<<<<\e[0m"
   yum install python36 gcc python3-devel -y &>>${log}
+  func_exit_status
 
   func_apppreq
 
   echo -e "\e[36m>>>>>>>>>>>>>>>>>>>>>>>> build ${component} service <<<<<<<<<<<<<<<<<<<<<<<<<<\e[0m"
   pip3.6 install -r requirements.txt &>>${log}
+  func_exit_status
 
   func_systemd
 }
